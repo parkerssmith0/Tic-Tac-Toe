@@ -9,6 +9,10 @@
     <script src="index.js"></script>
   </head>
   <body>
+    <!--These elements are hidden until the end of the game
+    I've also created buttons so that they player can select what spot 
+    they'd like to play during the game. They each have an ID so that each
+    element will be filled correctly -->
     <button id='again' class="playAgain" onclick="playGame()">Play again?</button>
     <p id="result" class="announcement"></p>
     <div class="tictac">
@@ -25,6 +29,8 @@
   </body>
 
   <script>
+    // I first prompt the user if they want to go first or not. Then based on their answer, I have the
+    // computer go first or let the user go first.
     win = 0;
     goFirst = prompt("Do you want to go first? (Y/N)");
 
@@ -37,6 +43,8 @@
       document.getElementById(computerMove).innerHTML = "O";
     }
 
+    // This is the main function of the program. Anytime a button "spot" is pressed, this function is called
+    // and takes in the position of the button. Then it adds the player's character and checks for wins
     function buttonClick(i) {
       spot = document.getElementById(i);
 
@@ -64,12 +72,13 @@
 
 
 
-
+      // If the user already won, then the computer can't place a character
       if(win == 0){
         computerSpot.innerHTML = "O";
         checkWin()
       } 
 
+      // This will display the results of the game after the win
       if (win == 1) {
         document.getElementById("result").innerHTML = "You win!"
       }
@@ -100,10 +109,14 @@
     }
   }
 
+  // If the player wants to play again, the page will reset
     function playGame() {
       location.reload()
     }
 
+    // This is one difficult function that I needed help from ChatGPT. It's taking each position every time
+    // it's called and will check with the if statment if the possible chances of winning are either "X" or "O"
+    // If none of the possible wins happen, then the game will end in a tie.
     function checkWin() {
       let pos1 = document.getElementById("1").innerHTML;
       let pos2 = document.getElementById("2").innerHTML;
