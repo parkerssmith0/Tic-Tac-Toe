@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tick Tack Toe</title>
+    <link rel="stylesheet" href="index.css" />
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <button id='again' class="playAgain" onclick="playGame()">Play again?</button>
+    <p id="result" class="announcement"></p>
+    <div class="tictac">
+      <button class="square" onclick="buttonClick(1)" id="1"></button>
+      <button class="square" onclick="buttonClick(2)" id="2"></button>
+      <button class="square" onclick="buttonClick(3)" id="3"></button>
+      <button class="square" onclick="buttonClick(4)" id="4"></button>
+      <button class="square" onclick="buttonClick(5)" id="5"></button>
+      <button class="square" onclick="buttonClick(6)" id="6"></button>
+      <button class="square" onclick="buttonClick(7)" id="7"></button>
+      <button class="square" onclick="buttonClick(8)" id="8"></button>
+      <button class="square" onclick="buttonClick(9)" id="9"></button>
+    </div>
+  </body>
+
+  <script>
+    win = 0;
+    goFirst = prompt("Do you want to go first? (Y/N)");
+
+    while (goFirst != "Y" && goFirst != "N") {
+      alert("Invalid input");
+      goFirst = prompt("Do you want to go first? (Y/N)");
+    }
+    if (goFirst == "N") {
+      computerMove = Math.floor(Math.random() * 9) + 1;
+      document.getElementById(computerMove).innerHTML = "O";
+    }
+
+    function buttonClick(i) {
+      spot = document.getElementById(i);
+
+
+      if (!spot.innerHTML.includes("X") && !spot.innerHTML.includes("O")) {
+        spot.innerHTML = "X";
+
+        computerMove = Math.floor(Math.random() * 9) + 1;
+      computerSpot = document.getElementById(computerMove);
+
+      checkWin()
+
+
+      while (
+        computerSpot.innerHTML.includes("X") ||
+        computerSpot.innerHTML.includes("O")
+      ) {
+        computerMove = Math.floor(Math.random() * 9) + 1;
+        computerSpot = document.getElementById(computerMove);
+        if (win != 0) {
+          break
+        }
+      }
+      }
+
+
+
+
+      if(win == 0){
+        computerSpot.innerHTML = "O";
+        checkWin()
+      } 
+
+      if (win == 1) {
+        document.getElementById("result").innerHTML = "You win!"
+      }
+      else if (win == 2) {
+        document.getElementById("result").innerHTML = "You lost! :("
+      }
+      else if (win == 3) {
+        document.getElementById("result").innerHTML = "Tie game!"
+      }
+
+      if (win != 0) {
+        again = document.getElementById("again")
+        again.style.display = "block"
+        
+
+        //playAgain = prompt("Do you want to play again? (Y/N)")
+        // while (playAgain != "Y" && playAgain != "N") {
+        //    alert("Invalid input");
+        //   playAgain = prompt("Do you want to go play again? (Y/N)");
+        // }
+      //   if (playAgain == "Y") {
+      //     location.reload()
+      //   } else {
+      //     alert("Thanks for playing!")
+      //   }
+      // }
+
+    }
+  }
+
+    function playGame() {
+      location.reload()
+    }
+
+    function checkWin() {
+      let pos1 = document.getElementById("1").innerHTML;
+      let pos2 = document.getElementById("2").innerHTML;
+      let pos3 = document.getElementById("3").innerHTML;
+      let pos4 = document.getElementById("4").innerHTML;
+      let pos5 = document.getElementById("5").innerHTML;
+      let pos6 = document.getElementById("6").innerHTML;
+      let pos7 = document.getElementById("7").innerHTML;
+      let pos8 = document.getElementById("8").innerHTML;
+      let pos9 = document.getElementById("9").innerHTML;
+      win = 0
+
+      if (
+        (pos1 === pos2 && pos2 === pos3 && (pos1 === "X")) || // Top row
+        (pos4 === pos5 && pos5 === pos6 && (pos4 === "X")) || // Middle row
+        (pos7 === pos8 && pos8 === pos9 && (pos7 === "X")) || // Bottom row
+        (pos1 === pos4 && pos4 === pos7 && (pos1 === "X")) || // Left column
+        (pos2 === pos5 && pos5 === pos8 && (pos2 === "X")) || // Middle column
+        (pos3 === pos6 && pos6 === pos9 && (pos3 === "X")) || // Right column
+        (pos1 === pos5 && pos5 === pos9 && (pos1 === "X")) || // Diagonal top-left to bottom-right
+        (pos3 === pos5 && pos5 === pos7 && (pos3 === "X")) // Diagonal top-right to bottom-left
+      ) {
+        return win = 1;
+      } else if (
+        (pos1 === pos2 && pos2 === pos3 && (pos1 === "O")) || // Top row
+        (pos4 === pos5 && pos5 === pos6 && (pos4 === "O")) || // Middle row
+        (pos7 === pos8 && pos8 === pos9 && (pos7 === "O")) || // Bottom row
+        (pos1 === pos4 && pos4 === pos7 && (pos1 === "O")) || // Left column
+        (pos2 === pos5 && pos5 === pos8 && (pos2 === "O")) || // Middle column
+        (pos3 === pos6 && pos6 === pos9 && (pos3 === "O")) || // Right column
+        (pos1 === pos5 && pos5 === pos9 && (pos1 === "O")) || // Diagonal top-left to bottom-right
+        (pos3 === pos5 && pos5 === pos7 && (pos3 === "O")) // Diagonal top-right to bottom-left
+      ) {
+        return win = 2
+      } else if (pos1 !== "" && pos2 !== "" && pos3 !== "" && 
+        pos4 !== "" && pos5 !== "" && pos6 !== "" && 
+        pos7 !== "" && pos8 !== "" && pos9 !== "") 
+        {
+        return win = 3; 
+      }
+    }
+  </script>
+</html>
